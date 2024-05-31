@@ -97,7 +97,8 @@
   }
 
   .grid {
-    /* TODO Look up how to make a single column list*/
+    /* Fixed css so we have 1 single column for mobile */
+    grid-template-columns: 1fr;
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
@@ -162,6 +163,7 @@
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
-    /* TODO Look up how to make a 2 column list*/
+    /*  Fixed TODO so we have 2 column lists for tablets and smaller desktops */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
