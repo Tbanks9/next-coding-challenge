@@ -97,7 +97,7 @@
   }
 
   .grid {
-    /* Fixed css so we have 1 single column for mobile */
+    /* Fixed TODO so we have 1 single column for mobile */
     grid-template-columns: 1fr;
     margin-bottom: 120px;
     max-width: 320px;

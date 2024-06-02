@@ -12,7 +12,7 @@ describe('Home', () => {
     expect(basketButton).toHaveTextContent('Basket: 0 items');
   });
 
-  it('renders a basket with 1 item', async () => {
+  it('renders a basket with 1 item', () => {
     render(<Home />);
 
     const addButton = screen.getByRole('button', {
@@ -25,10 +25,10 @@ describe('Home', () => {
       name: /Basket:/i,
     });
 
-    expect(basketButton).toHaveTextContent(/Basket: 1 items/);
+    expect(basketButton).toHaveTextContent('Basket: 1 items');
   });
 
-  it('renders a basket with 1 of item 1 and 2 of item 2', async () => {
+  it('renders a basket with 1 of item 1 and 2 of item 2', () => {
     render(<Home />);
 
     const AddButtonItem1 = screen.getByRole('button', {
@@ -46,6 +46,6 @@ describe('Home', () => {
       name: /Basket:/i,
     });
 
-    expect(basketButton).toHaveTextContent(/Basket: 3 items/);
+    expect(basketButton).toHaveTextContent('Basket: 3 items');
   });
 });

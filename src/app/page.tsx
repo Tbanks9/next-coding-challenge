@@ -29,7 +29,8 @@ const products: Product[] = [
 
 export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
-  const [itemCount, setItemCount] = useState<number>(0);
+
+  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
 
   const addToCart = (product: string) => {
     setItems((prevItems) => {
@@ -44,7 +45,6 @@ export default function Home() {
         return [...prevItems, { name: product, quantity: 1 }];
       }
     });
-    setItemCount((prevCount) => prevCount + 1);
   };
 
   return (
@@ -53,14 +53,8 @@ export default function Home() {
         <p>Michael&apos;s Amazing Web Store</p>
         <div>
           <button className={styles.basket}>Basket: {itemCount} items</button>
-          {products.map((product) => (
-            <ItemCount
-              key={product.name}
-              name={product.name}
-              count={
-                items.find((item) => item.name === product.name)?.quantity || 0
-              }
-            />
+          {items.map((item) => (
+            <ItemCount key={item.name} name={item.name} count={item.quantity} />
           ))}
         </div>
       </div>
