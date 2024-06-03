@@ -2,14 +2,11 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 
+// I originally initialised two types: Item and Product. It made sense for me to merge them in the end.
 interface Item {
   name: string;
-  quantity: number;
-}
-
-interface Product {
-  name: string;
   description: string;
+  quantity: number;
 }
 
 function ItemCount({ count, name }: { count: number; name: string }) {
@@ -20,31 +17,27 @@ function ItemCount({ count, name }: { count: number; name: string }) {
   );
 }
 
-const products: Product[] = [
-  { name: 'Item 1', description: 'Foo' },
-  { name: 'Item 2', description: 'Bar' },
-  { name: 'Item 3', description: 'Baz' },
-  { name: 'Item 4', description: 'Qux' },
+const initialItems: Item[] = [
+  { name: 'Item 1', description: 'Foo', quantity: 0 },
+  { name: 'Item 2', description: 'Bar', quantity: 0 },
+  { name: 'Item 3', description: 'Baz', quantity: 0 },
+  { name: 'Item 4', description: 'Qux', quantity: 0 },
 ];
 
 export default function Home() {
-  const [items, setItems] = useState<Item[]>([]);
+  // In order to display the items original states and render the buttons, I've set the inital state with initialItems
+  const [items, setItems] = useState<Item[]>(initialItems);
 
   const itemCount = items.reduce((total, item) => total + item.quantity, 0);
 
-  const addToCart = (product: string) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.name === product);
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.name === product
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevItems, { name: product, quantity: 1 }];
-      }
-    });
+  const addToCart = (productName: string) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.name === productName
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
   };
 
   return (
@@ -60,17 +53,17 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        {products.map((product) => (
+        {items.map((item) => (
           <button
-            key={product.name}
+            key={item.name}
             className={styles.card}
-            onClick={() => addToCart(product.name)}
-            aria-label={`Add ${product.name} to basket`}
+            onClick={() => addToCart(item.name)}
+            aria-label={`Add ${item.name} to basket`}
           >
             <h2>
-              {product.name} <span>-&gt;</span>
+              {item.name} <span>-&gt;</span>
             </h2>
-            <p>{product.description}</p>
+            <p>{item.description}</p>
           </button>
         ))}
       </div>
